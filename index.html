@@ -1,0 +1,891 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5cde1">
+<title>Pixel Paradise ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Comfortaa:wght@400;500;600;700&family=Cookie&family=Dancing+Script:wght@400;500;600;700&family=Fredoka:wght@300;400;500;600;700&family=Gloria+Hallelujah&family=Great+Vibes&family=IBM+Plex+Mono:wght@400;500;600&family=Indie+Flower&family=Lobster&family=Luckiest+Guy&family=Pacifico&family=Patrick+Hand&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Press+Start+2P&family=Quicksand:wght@400;500;600;700&family=Raleway:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500&family=Sacramento&family=Silkscreen:wght@400;700&family=Special+Elite&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#fff0f6;--paper:#fffafd;--accent:#e9a9ca;--soft:#f9dce9;
+ --ink:#75566c;--muted:#b18da4;--line:#f0d9e7;
+ --shadow:0 9px 28px #b77c9a20;--radius:21px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Quicksand,sans-serif;transition:.25s;min-height:100vh}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+button,.btn{border:1px solid var(--line);background:var(--soft);border-radius:25px;padding:9px 13px;font-size:12px;font-weight:800;transition:.15s}
+button:hover,.btn:hover{transform:translateY(-2px);filter:brightness(.98)}
+.primary{background:var(--accent);color:white;border-color:var(--accent)}
+.danger{background:#ffe4e8;color:#a44c64}
+input[type=text],input[type=url],input[type=date],input[type=number],input[type=color],input[type=file],textarea,select{
+ max-width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--ink);font-size:12px
+}
+input[type=color]{padding:3px;width:43px;height:36px;cursor:pointer}
+input[type=range]{accent-color:var(--accent)}
+textarea{width:100%;min-height:95px;resize:vertical}
+a{color:inherit}
+.topbar{max-width:1250px;margin:auto;padding:18px 25px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:Pacifico,cursive;font-size:25px;color:var(--accent);text-decoration:none}
+.topright{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:11px}
+.pill{background:var(--paper);border:1px solid var(--line);padding:8px 12px;border-radius:30px}
+.shell{max-width:1250px;margin:auto;padding:8px 25px 50px}
+.hero{background:var(--paper);border:2px solid white;border-radius:30px;padding:32px 20px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"✧";position:absolute;color:var(--soft);font-size:65px;animation:float 4s ease-in-out infinite;pointer-events:none}
+.hero:before{left:25px;bottom:5px}.hero:after{right:25px;top:0}
+@keyframes float{50%{transform:translateY(-9px) rotate(12deg)}}
+.eyebrow{text-transform:uppercase;letter-spacing:3px;font-size:10px;font-weight:900;color:var(--accent)}
+.hero h1{font-family:"Playfair Display",serif;font-size:clamp(32px,6vw,54px);margin:10px 0}
+.hero p{font-size:12px;color:var(--muted)}
+.hero input{width:min(340px,90%);border:0;border-bottom:2px dashed var(--accent);background:transparent;text-align:center;font-size:14px}
+.nav{display:flex;gap:7px;overflow-x:auto;padding:14px 0;scrollbar-width:thin}
+.nav button{white-space:nowrap;background:var(--paper);font-size:11px}
+.nav button.active{background:var(--accent);color:white;border-color:var(--accent)}
+.page{display:none;animation:appear .25s ease}
+.page.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.card{background:var(--paper);border:1px solid white;border-radius:var(--radius);padding:19px;box-shadow:var(--shadow);min-width:0}
+.card.full{grid-column:1/-1}
+h2{font-family:"Playfair Display",serif;font-size:22px;margin:0 0 12px}
+h3{font-size:13px;margin:16px 0 8px}
+p{line-height:1.55}
+.small{font-size:11px;color:var(--muted)}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.row>*{min-width:0}
+.row input[type=text],.row input[type=url]{flex:1}
+.stack{display:grid;gap:9px}
+.preview{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:15px;text-align:center}
+.quote{font-family:"Playfair Display",serif;font-style:italic;font-size:17px;padding:18px;background:var(--bg);border-radius:15px;text-align:center}
+.bookmarks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.bookmark{display:block;text-decoration:none;text-align:center;padding:12px 4px;border-radius:14px;background:var(--bg);border:1px solid var(--line);font-size:11px;overflow-wrap:anywhere}
+.bookmark span{display:block;font-size:24px;margin-bottom:4px}
+.list{display:grid;gap:7px;margin-top:10px}
+.listitem{display:flex;gap:8px;align-items:center;background:var(--bg);padding:9px 11px;border-radius:12px;font-size:12px}
+.listitem .itemtext{flex:1;overflow-wrap:anywhere}
+.listitem.done .itemtext{text-decoration:line-through;opacity:.5}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.tabs button{font-size:10px}
+.themegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.theme{background:var(--paper);font-size:10px}
+.swatch{width:25px;height:25px;border-radius:50%;display:block;margin:0 auto 6px}
+.outputgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.idea{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px;display:flex;justify-content:space-between;gap:5px;align-items:center;overflow-wrap:anywhere}
+.idea button{padding:5px 8px}
+.canvas{position:relative;min-height:340px;background:var(--paper);border:2px dashed var(--accent);border-radius:17px;overflow:hidden;touch-action:pan-y}
+.canvas:empty:after{content:"♡ your masterpiece goes here ♡";position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:12px;pointer-events:none}
+.mooditem{position:absolute;z-index:2;cursor:grab;user-select:none;touch-action:none;white-space:pre-wrap;max-width:220px;line-height:1.2}
+.mooditem.selected{outline:1px dashed var(--accent);outline-offset:5px}
+.mooditem img{max-width:160px;max-height:160px;display:block;pointer-events:none}
+.pet{font-size:100px;text-align:center;animation:bob 2s ease-in-out infinite;line-height:1.4}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.petroom{background:linear-gradient(#e8f4ff,#fff0f6);border-radius:20px;padding:18px;text-align:center}
+.pixelgrid{display:grid;grid-template-columns:repeat(16,1fr);width:min(100%,420px);aspect-ratio:1;border:2px solid var(--line);margin:12px auto;background:white;touch-action:none}
+.pixel{border:1px solid #eee;background:white;min-width:0;min-height:0}
+.chatbox{height:280px;overflow-y:auto;background:var(--bg);border-radius:15px;padding:12px;display:flex;flex-direction:column;gap:9px}
+.bubble{max-width:80%;padding:9px 12px;border-radius:15px;background:white;font-size:12px;align-self:flex-start;overflow-wrap:anywhere}
+.bubble.mine{align-self:flex-end;background:var(--soft)}
+.chatmeta{font-size:9px;color:var(--muted);margin-top:3px}
+.dresspreview{background:linear-gradient(135deg,#eaf5ff,#fff0f6);border-radius:20px;min-height:230px;display:grid;place-items:center;text-align:center}
+.doll{font-size:95px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.day{min-height:42px;border:1px solid var(--line);background:var(--bg);border-radius:8px;font-size:10px;padding:5px}
+.day.today{border:2px solid var(--accent)}
+.day.has-event:after{content:" •";color:var(--accent)}
+.timer{font-size:45px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums;padding:12px}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.colorchip{height:95px;border-radius:12px;display:flex;align-items:end;justify-content:center;padding:6px;color:#333;font-size:9px;text-shadow:0 1px 2px white}
+.stickergrid{display:grid;grid-template-columns:repeat(8,1fr);gap:7px}
+.stickerchoice{font-size:21px;padding:6px;background:white}
+.shopitem{background:var(--bg);border-radius:13px;padding:10px;text-align:center}
+.shopitem .emoji{font-size:28px}
+.badge{display:inline-block;background:var(--soft);padding:4px 8px;border-radius:20px;font-size:9px}
+footer{text-align:center;padding:25px;color:var(--muted);font-size:11px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.card.full{grid-column:auto}.shell{padding:8px 12px 35px}.topbar{padding:14px}.hero{padding:25px 12px}.bookmarks{grid-template-columns:repeat(3,1fr)}.stickergrid{grid-template-columns:repeat(6,1fr)}.palette{grid-template-columns:repeat(5,1fr)}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <a class="logo" href="#" onclick="go('home');return false">pixel paradise ♡</a>
+ <div class="topright"><span class="pill" id="clock">--:--</span><span class="pill">✧ your personal internet</span></div>
+</header>
+
+<main class="shell">
+<section class="hero">
+ <div class="eyebrow">✧ welcome to your own little universe ✧</div>
+ <h1 id="heroTitle">Hello, sunshine ♡</h1>
+ <input id="greeting" value="welcome to my little world" aria-label="Edit your greeting">
+ <p>your corner of the internet, decorated by you.</p>
+ <div class="small">♡ best viewed with a little imagination ♡</div>
+</section>
+
+<nav class="nav">
+ <button class="active" data-page="home" onclick="go('home')">⌂ Home</button>
+ <button data-page="names" onclick="go('names')">✎ Names & Bios</button>
+ <button data-page="diary" onclick="go('diary')">📔 Diary</button>
+ <button data-page="pet" onclick="go('pet')">🐾 Pet</button>
+ <button data-page="dress" onclick="go('dress')">👗 Dress-up</button>
+ <button data-page="mood" onclick="go('mood')">🖼 Moodboard</button>
+ <button data-page="pixel" onclick="go('pixel')">▦ Pixel Art</button>
+ <button data-page="messages" onclick="go('messages')">💬 Messages</button>
+ <button data-page="music" onclick="go('music')">♫ Music</button>
+ <button data-page="guestbook" onclick="go('guestbook')">💌 Guestbook</button>
+ <button data-page="quiz" onclick="go('quiz')">✧ Quiz Maker</button>
+ <button data-page="shop" onclick="go('shop')">🎀 Sticker Shop</button>
+ <button data-page="palette" onclick="go('palette')">🎨 Palettes</button>
+ <button data-page="customize" onclick="go('customize')">⚙ Customize</button>
+</nav>
+
+<!-- HOME -->
+<section class="page active" id="home">
+ <div class="grid">
+  <article class="card">
+   <h2>♡ search the web</h2>
+   <form id="searchForm" class="row"><input id="searchInput" type="text" placeholder="what are we looking for?"><button class="primary">search ↗</button></form>
+   <h3>favourite corners</h3>
+   <div class="bookmarks">
+    <a class="bookmark" href="https://www.youtube.com" target="_blank" rel="noopener"><span>▶️</span>YouTube</a>
+    <a class="bookmark" href="https://www.pinterest.com" target="_blank" rel="noopener"><span>📌</span>Pinterest</a>
+    <a class="bookmark" href="https://www.google.com" target="_blank" rel="noopener"><span>🔎</span>Google</a>
+    <a class="bookmark" href="https://open.spotify.com" target="_blank" rel="noopener"><span>🎧</span>Spotify</a>
+    <a class="bookmark" href="https://www.roblox.com" target="_blank" rel="noopener"><span>🎮</span>Roblox</a>
+    <a class="bookmark" href="https://www.tumblr.com" target="_blank" rel="noopener"><span>💌</span>Tumblr</a>
+   </div>
+  </article>
+  <article class="card">
+   <h2>✧ daily inspiration</h2>
+   <div class="quote" id="quote">"Make your own kind of magic."</div>
+   <div class="row" style="justify-content:center;margin-top:9px"><button onclick="newQuote()">another quote ♡</button></div>
+   <h3>countdown</h3>
+   <input id="countName" type="text" placeholder="what are we counting down to?">
+   <input id="countDate" type="date" style="margin-top:7px">
+   <div class="preview" id="countResult" style="margin-top:8px">Choose a date ♡</div>
+   <button style="margin-top:8px" onclick="saveCountdown()">save countdown</button>
+  </article>
+  <article class="card">
+   <h2>☁ quick notes</h2>
+   <textarea id="quickNotes" placeholder="little thoughts, reminders, ideas..."></textarea>
+   <p class="small">Autosaves in this browser.</p>
+  </article>
+  <article class="card">
+   <h2>✧ little daily question</h2>
+   <div class="quote" id="dailyQuestion">If you could live in any fictional world, which would you choose?</div>
+   <button onclick="randomQuestion()">new question ♡</button>
+  </article>
+ </div>
+</section>
+
+<!-- USERNAME & BIO STUDIO -->
+<section class="page" id="names">
+ <div class="grid">
+  <article class="card full">
+   <h2>✎ username & bio studio</h2>
+   <p class="small">Find a new online display name or a tiny bio. These suggestions are general ideas, not based on your personal name.</p>
+   <div class="tabs" id="nameTabs"></div>
+   <div class="row"><button class="primary" onclick="generateNames()">randomize names ✧</button><button onclick="generateNames(true)">more ideas ↻</button></div>
+   <div class="outputgrid" id="nameResults" style="margin-top:12px"></div>
+   <h3>bio themes</h3>
+   <div class="tabs" id="bioTabs"></div>
+   <div class="row"><button class="primary" onclick="generateBios()">generate bios ♡</button><button onclick="generateBios(true)">more bios ↻</button></div>
+   <div class="outputgrid" id="bioResults" style="margin-top:12px"></div>
+   <h3>saved favourites</h3><div id="nameFavorites" class="list"></div>
+  </article>
+ </div>
+</section>
+
+<!-- DIARY -->
+<section class="page" id="diary">
+ <div class="grid">
+  <article class="card">
+   <h2>📔 my digital diary</h2>
+   <input id="diaryTitle" type="text" placeholder="today's title">
+   <h3>how are you feeling?</h3>
+   <div class="tabs" id="moodTags">
+    <button onclick="setDiaryMood('♡ happy')">♡ happy</button><button onclick="setDiaryMood('☁ calm')">☁ calm</button><button onclick="setDiaryMood('✧ excited')">✧ excited</button><button onclick="setDiaryMood('🌧 thoughtful')">🌧 thoughtful</button><button onclick="setDiaryMood('🌱 hopeful')">🌱 hopeful</button>
+   </div>
+   <input id="diaryMood" type="text" placeholder="mood tag" readonly>
+   <h3>dear diary...</h3>
+   <textarea id="diaryText" style="min-height:190px" placeholder="write about your day, thoughts, little moments..."></textarea>
+   <button class="primary" onclick="saveDiary()">save entry ♡</button>
+  </article>
+  <article class="card">
+   <h2>♡ past entries</h2>
+   <div id="diaryEntries" class="list"></div>
+  </article>
+ </div>
+</section>
+
+<!-- VIRTUAL PET -->
+<section class="page" id="pet">
+ <div class="grid">
+  <article class="card">
+   <h2>🐾 your virtual pet</h2>
+   <div class="petroom">
+    <div class="pet" id="petFace">🐰</div>
+    <h2 id="petNameLabel">Bunny</h2>
+    <p class="small" id="petStatus">Your little friend is happy to see you!</p>
+   </div>
+   <h3>name your pet</h3>
+   <div class="row"><input id="petName" type="text" placeholder="give your pet a name"><button onclick="savePetName()">save</button></div>
+   <h3>choose your pet</h3>
+   <div class="tabs" id="petChoices"></div>
+   <h3>care for your friend</h3>
+   <div class="row">
+    <button onclick="petAction('feed')">🍓 feed</button>
+    <button onclick="petAction('play')">🧸 play</button>
+    <button onclick="petAction('cuddle')">♡ cuddle</button>
+    <button onclick="petAction('clean')">🫧 tidy room</button>
+   </div>
+  </article>
+  <article class="card">
+   <h2>♡ pet stats</h2>
+   <p>Happiness</p><progress id="petHappy" max="100" value="75" style="width:100%;accent-color:var(--accent)"></progress>
+   <p>Fullness</p><progress id="petFull" max="100" value="70" style="width:100%;accent-color:var(--accent)"></progress>
+   <p>Cleanliness</p><progress id="petClean" max="100" value="80" style="width:100%;accent-color:var(--accent)"></progress>
+   <div class="preview" id="petMessage">Your pet is having a lovely day ♡</div>
+   <p class="small">Your pet's stats are a playful game feature, not a real-world care reminder.</p>
+  </article>
+ </div>
+</section>
+
+<!-- DRESS UP -->
+<section class="page" id="dress">
+ <div class="grid">
+  <article class="card">
+   <h2>👗 dress-up studio</h2>
+   <div class="dresspreview"><div><div class="doll" id="doll">👧🏻</div><strong id="dollCaption">your little avatar</strong></div></div>
+   <h3>hair</h3><div class="tabs" id="hairChoices"></div>
+   <h3>outfit</h3><div class="tabs" id="outfitChoices"></div>
+   <h3>accessories</h3><div class="tabs" id="accessoryChoices"></div>
+   <h3>background</h3><div class="tabs" id="dressBackgrounds"></div>
+   <button class="primary" onclick="saveOutfit()">save this look ♡</button>
+  </article>
+  <article class="card">
+   <h2>♡ saved outfits</h2>
+   <div id="outfitSaved" class="list"></div>
+   <p class="small">Mix and match your own little looks!</p>
+  </article>
+ </div>
+</section>
+
+<!-- MOODBOARD -->
+<section class="page" id="mood">
+ <div class="grid">
+  <article class="card full">
+   <h2>🖼 moodboard maker</h2>
+   <p class="small">Add text, stickers, and your own pictures. Drag objects around to arrange your board.</p>
+   <h3>font collection — choose your style</h3>
+   <select id="moodFont" onchange="updateMoodSelection()">
+    <option value="Quicksand">Quicksand — soft rounded</option>
+    <option value="Fredoka">Fredoka — bubbly</option>
+    <option value="Baloo 2">Baloo 2 — playful</option>
+    <option value="Comfortaa">Comfortaa — rounded</option>
+    <option value="Pacifico">Pacifico — handwritten</option>
+    <option value="Dancing Script">Dancing Script — cursive</option>
+    <option value="Great Vibes">Great Vibes — elegant script</option>
+    <option value="Cookie">Cookie — sweet script</option>
+    <option value="Sacramento">Sacramento — delicate script</option>
+    <option value="Indie Flower">Indie Flower — notebook</option>
+    <option value="Patrick Hand">Patrick Hand — handwritten</option>
+    <option value="Gloria Hallelujah">Gloria Hallelujah — casual</option>
+    <option value="Playfair Display">Playfair Display — editorial</option>
+    <option value="Raleway">Raleway — clean</option>
+    <option value="Lobster">Lobster — retro</option>
+    <option value="Luckiest Guy">Luckiest Guy — comic</option>
+    <option value="Press Start 2P">Press Start 2P — pixel</option>
+    <option value="Silkscreen">Silkscreen — retro pixel</option>
+    <option value="VT323">VT323 — old computer</option>
+    <option value="IBM Plex Mono">IBM Plex Mono — typewriter</option>
+    <option value="Roboto Mono">Roboto Mono — monospaced</option>
+    <option value="Special Elite">Special Elite — vintage typewriter</option>
+    <option value="Arial">Arial — classic</option>
+    <option value="Georgia">Georgia — serif</option>
+    <option value="Courier New">Courier New — typewriter</option>
+   </select>
+   <div class="row" style="margin-top:9px">
+    <input id="moodText" type="text" placeholder="write something for your moodboard">
+    <input id="moodTextColor" type="color" value="#b879a1" title="Text colour">
+    <input id="moodTextSize" type="range" min="12" max="65" value="27" title="Text size">
+    <button onclick="addMoodText()">add text ✎</button>
+   </div>
+   <div class="row" style="margin-top:8px">
+    <label class="btn">upload picture<input type="file" id="moodImage" accept="image/*" hidden></label>
+    <button onclick="addMoodSticker('♡')">♡</button><button onclick="addMoodSticker('✧')">✧</button><button onclick="addMoodSticker('🎀')">🎀</button><button onclick="addMoodSticker('🦋')">🦋</button><button onclick="addMoodSticker('☁️')">☁️</button><button onclick="deleteMoodItem()">delete selected</button>
+   </div>
+   <h3>your moodboard</h3>
+   <div class="canvas" id="moodCanvas"></div>
+   <div class="row" style="margin-top:10px">
+    <input id="moodBoardName" type="text" placeholder="board name">
+    <button onclick="saveMoodboard()">save board ♡</button>
+    <button onclick="exportMoodboard()">export SVG ↓</button>
+    <button class="danger" onclick="clearMoodboard()">clear</button>
+   </div>
+   <h3>saved boards</h3><div id="moodSaved" class="list"></div>
+   <p class="small">Google Fonts load when connected to the internet. Some fonts also have local fallback alternatives.</p>
+  </article>
+ </div>
+</section>
+
+<!-- PIXEL ART -->
+<section class="page" id="pixel">
+ <div class="grid">
+  <article class="card">
+   <h2>▦ pixel art studio</h2>
+   <p class="small">Draw tiny pixel pictures with a 16 × 16 canvas.</p>
+   <div class="row"><input type="color" id="pixelColor" value="#e9a9ca"><button onclick="setPixelTool('draw')">✎ draw</button><button onclick="setPixelTool('erase')">eraser</button><button onclick="clearPixels()">clear</button></div>
+   <div class="pixelgrid" id="pixelGrid"></div>
+   <div class="row"><button class="primary" onclick="exportPixels()">save PNG ↓</button><button onclick="downloadPixelData()">save project</button></div>
+  </article>
+  <article class="card">
+   <h2>♡ quick colours</h2>
+   <div class="tabs">
+    <button onclick="setPixelColor('#f5b8d2')">pink</button><button onclick="setPixelColor('#b8dcf7')">blue</button><button onclick="setPixelColor('#cbb8ed')">lavender</button><button onclick="setPixelColor('#b8d9b9')">matcha</button><button onclick="setPixelColor('#f6d0ae')">peach</button><button onclick="setPixelColor('#75566c')">plum</button><button onclick="setPixelColor('#ffffff')">white</button><button onclick="setPixelColor('#333333')">black</button>
+   </div>
+   <p class="small">Tip: zoom in on your browser if you want a closer look at your tiny canvas.</p>
+  </article>
+ </div>
+</section>
+
+<!-- MESSAGE SIMULATOR -->
+<section class="page" id="messages">
+ <div class="grid">
+  <article class="card">
+   <h2>💬 message simulator</h2>
+   <p class="small">Make fictional chat conversations for stories and creative projects.</p>
+   <input id="chatContact" type="text" placeholder="contact name">
+   <div class="row" style="margin-top:8px"><input id="chatMessage" type="text" placeholder="type a message"><button class="primary" onclick="sendChat()">send</button></div>
+   <div class="tabs"><button onclick="chatAs('mine')">send as me</button><button onclick="chatAs('them')">send as contact</button><button onclick="clearChat()">clear chat</button></div>
+  </article>
+  <article class="card">
+   <h2 id="chatTitle">♡ chat preview</h2>
+   <div class="chatbox" id="chatBox"></div>
+   <button style="margin-top:9px" onclick="exportChat()">download conversation</button>
+  </article>
+ </div>
+</section>
+
+<!-- MUSIC PLAYER -->
+<section class="page" id="music">
+ <div class="grid">
+  <article class="card">
+   <h2>♫ mini music player</h2>
+   <div class="preview">
+    <div style="font-size:65px" id="albumIcon">💿</div>
+    <h2 id="trackName">no song selected</h2>
+    <p class="small" id="trackInfo">add an audio file from your device</p>
+    <audio id="audioPlayer" controls style="width:100%"></audio>
+   </div>
+   <h3>add your own music</h3>
+   <input type="file" id="musicUpload" accept="audio/*">
+   <p class="small">Choose audio files that you have permission to use. The player does not stream songs from external services.</p>
+  </article>
+  <article class="card">
+   <h2>♡ playlist</h2>
+   <div id="playlist" class="list"></div>
+  </article>
+ </div>
+</section>
+
+<!-- GUESTBOOK -->
+<section class="page" id="guestbook">
+ <div class="grid">
+  <article class="card">
+   <h2>💌 sign my guestbook!</h2>
+   <input id="guestName" type="text" placeholder="your display name">
+   <textarea id="guestMessage" placeholder="leave a sweet little message..."></textarea>
+   <button class="primary" onclick="addGuestbook()">sign guestbook ♡</button>
+   <p class="small">This browser version saves messages on this device only. A shared public guestbook requires a server.</p>
+  </article>
+  <article class="card">
+   <h2>♡ visitor messages</h2>
+   <div id="guestEntries" class="list"></div>
+  </article>
+ </div>
+</section>
+
+<!-- QUIZ MAKER -->
+<section class="page" id="quiz">
+ <div class="grid">
+  <article class="card">
+   <h2>✧ quiz maker</h2>
+   <p class="small">Create your own multiple-choice quiz and play it.</p>
+   <input id="quizTitle" type="text" placeholder="quiz title">
+   <input id="quizQuestion" type="text" placeholder="write a question" style="margin-top:8px">
+   <div id="quizOptions" class="stack" style="margin-top:8px">
+    <input type="text" placeholder="answer option 1">
+    <input type="text" placeholder="answer option 2">
+    <input type="text" placeholder="answer option 3">
+    <input type="text" placeholder="answer option 4">
+   </div>
+   <label class="small">Correct answer
+    <select id="correctOption"><option value="0">Option 1</option><option value="1">Option 2</option><option value="2">Option 3</option><option value="3">Option 4</option></select>
+   </label>
+   <button onclick="addQuizQuestion()">add question +</button>
+   <div id="quizDraft" class="list"></div>
+   <button class="primary" onclick="saveQuiz()">save quiz ♡</button>
+  </article>
+  <article class="card">
+   <h2>♡ play a quiz</h2>
+   <select id="quizSelect" onchange="startQuiz()"><option value="">Choose a quiz</option></select>
+   <div id="quizPlay" class="preview" style="margin-top:10px">Your quiz will appear here ♡</div>
+   <div id="quizSaved" class="list"></div>
+  </article>
+ </div>
+</section>
+
+<!-- STICKER SHOP -->
+<section class="page" id="shop">
+ <div class="grid">
+  <article class="card full">
+   <h2>🎀 sticker shop</h2>
+   <p class="small">Collect cute stickers and add them to your personal sticker collection.</p>
+   <div class="row"><span class="badge" id="stickerCount">0 collected</span><button onclick="showShop('all')">all</button><button onclick="showShop('cute')">cute</button><button onclick="showShop('y2k')">Y2K</button><button onclick="showShop('nature')">nature</button><button onclick="showShop('symbols')">symbols</button></div>
+   <div class="outputgrid" id="shopGrid" style="margin-top:12px"></div>
+   <h3>♡ your collection</h3><div class="stickergrid" id="myStickers"></div>
+  </article>
+ </div>
+</section>
+
+<!-- COLOUR PALETTE -->
+<section class="page" id="palette">
+ <div class="grid">
+  <article class="card">
+   <h2>🎨 colour palette generator</h2>
+   <p class="small">Generate five-colour palettes and save your favourites.</p>
+   <div class="palette" id="paletteDisplay"></div>
+   <div class="row" style="margin-top:12px"><button class="primary" onclick="generatePalette()">generate palette ✧</button><button onclick="savePalette()">save ♡</button><button onclick="copyPalette()">copy HEX codes</button></div>
+   <h3>palette style</h3>
+   <select id="paletteStyle"><option value="pastel">pastel</option><option value="pink">pink dream</option><option value="blue">cloudy blue</option><option value="earth">earthy</option><option value="vintage">vintage</option><option value="neon">neon pop</option><option value="random">surprise me</option></select>
+  </article>
+  <article class="card">
+   <h2>♡ saved palettes</h2>
+   <div id="savedPalettes" class="list"></div>
+  </article>
+ </div>
+</section>
+
+<!-- CUSTOMIZE -->
+<section class="page" id="customize">
+ <div class="grid">
+  <article class="card">
+   <h2>✧ website themes</h2>
+   <div class="themegrid">
+    <button class="theme" onclick="setTheme('pink')"><i class="swatch" style="background:#f2c5d9"></i>strawberry</button>
+    <button class="theme" onclick="setTheme('blue')"><i class="swatch" style="background:#b8dcf7"></i>cloudy blue</button>
+    <button class="theme" onclick="setTheme('purple')"><i class="swatch" style="background:#d9c9f4"></i>lavender</button>
+    <button class="theme" onclick="setTheme('green')"><i class="swatch" style="background:#c8dfcb"></i>matcha</button>
+    <button class="theme" onclick="setTheme('peach')"><i class="swatch" style="background:#f5d2b9"></i>peach soda</button>
+    <button class="theme" onclick="setTheme('dark')"><i class="swatch" style="background:#303344"></i>midnight</button>
+   </div>
+   <h3>custom accent</h3><input type="color" id="accentPicker" value="#e9a9ca" onchange="customAccent(this.value)">
+   <h3>wallpaper</h3>
+   <div class="tabs"><button onclick="setWallpaper('dots')">polka dots</button><button onclick="setWallpaper('pink')">pink gradient</button><button onclick="setWallpaper('blue')">blue gradient</button><button onclick="setWallpaper('lavender')">lavender</button><button onclick="setWallpaper('plain')">plain</button></div>
+   <label class="btn">upload wallpaper<input type="file" id="wallpaperUpload" accept="image/*" hidden></label>
+  </article>
+  <article class="card">
+   <h2>♡ display settings</h2>
+   <h3>website font</h3>
+   <select id="siteFont" onchange="changeFont(this.value)">
+    <option>Quicksand</option><option>Fredoka</option><option>Baloo 2</option><option>Comfortaa</option><option>Pacifico</option><option>Playfair Display</option><option>Raleway</option><option>VT323</option><option>Silkscreen</option>
+   </select>
+   <h3>rounded corners</h3><input type="range" min="5" max="38" value="21" oninput="document.documentElement.style.setProperty('--radius',this.value+'px')">
+   <h3>cursor</h3><select id="cursorSelect" onchange="setCursor(this.value)"><option value="auto">classic</option><option value="pointer">pointer</option><option value="crosshair">crosshair</option><option value="help">question mark</option></select>
+   <h3>decorations</h3>
+   <label class="small"><input type="checkbox" id="clockToggle" checked onchange="$('clock').classList.toggle('hidden',!this.checked)"> show clock</label>
+  </article>
+  <article class="card full">
+   <h2>♡ save your website</h2>
+   <p class="small">Your entries, profile-style settings, pet, boards, quizzes, messages, stickers, and palettes are saved in this browser. Download a backup to keep a copy.</p>
+   <div class="row"><button class="primary" onclick="saveBackup()">download backup ↓</button><label class="btn">restore backup<input type="file" id="restoreBackup" accept="application/json" hidden></label><button class="danger" onclick="resetAll()">reset website</button></div>
+   <p class="small" id="saveStatus"></p>
+  </article>
+ </div>
+</section>
+</main>
+<footer>made of pixels, glitter & internet magic ♡ · pixel paradise 2000s edition</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const KEY='pixelParadiseMegaV2';
+const defaults={
+ theme:'pink',accent:'#e9a9ca',font:'Quicksand',wallpaper:'plain',
+ greeting:'welcome to my little world',quickNotes:'',countdown:{name:'',date:''},
+ diary:[],pet:{name:'Bunny',face:'🐰',happy:75,full:70,clean:80},
+ outfits:[],moodboards:[],chat:[],guests:[],quizzes:[],stickers:['🎀','♡','✧'],palettes:[]
+};
+let data={...defaults};
+function load(){
+ try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s)data={...defaults,...s,pet:{...defaults.pet,...s.pet}}}catch(e){}
+}
+function persist(){
+ try{localStorage.setItem(KEY,JSON.stringify(data));$('saveStatus').textContent='Saved in this browser ♡'}
+ catch(e){$('saveStatus').textContent='Storage is full. Remove some large uploaded images and try again.'}
+}
+function go(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+ if(id==='diary')renderDiary();if(id==='pet')renderPet();if(id==='dress')renderOutfits();
+ if(id==='mood')renderMoodSaved();if(id==='messages')renderChat();if(id==='guestbook')renderGuests();
+ if(id==='quiz')renderQuizList();if(id==='shop')showShop('all');if(id==='palette')renderSavedPalettes();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function clock(){$('clock').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
+clock();setInterval(clock,1000);
+$('searchForm').addEventListener('submit',e=>{e.preventDefault();let q=$('searchInput').value.trim();if(q)window.open('https://www.google.com/search?q='+encodeURIComponent(q),'_blank','noopener')});
+$('greeting').addEventListener('input',e=>{data.greeting=e.target.value;persist()});
+const themes={
+ pink:['#fff0f6','#fffafd','#e9a9ca','#f9dce9','#75566c','#b18da4','#f0d9e7'],
+ blue:['#eaf5ff','#ffffff','#8dbde5','#d9edff','#52677c','#91a5b9','#dceaf6'],
+ purple:['#f4efff','#ffffff','#b49bdc','#e6dcfa','#615477','#a99dbd','#e6def4'],
+ green:['#f0f7ed','#ffffff','#91b99a','#dcebdc','#4d6953','#91a995','#dce9dc'],
+ peach:['#fff2e8','#ffffff','#e9aa83','#f9dfca','#795c4d','#b49a89','#f1dfd1'],
+ dark:['#242638','#34364c','#c3a6ec','#49415e','#f5efff','#b5a8c8','#4c4960']
+};
+function setTheme(n){
+ let t=themes[n];if(!t)return;
+ ['--bg','--paper','--accent','--soft','--ink','--muted','--line'].forEach((k,i)=>document.documentElement.style.setProperty(k,t[i]));
+ data.theme=n;data.accent=t[2];$('accentPicker').value=t[2];persist();
+}
+function customAccent(c){data.accent=c;document.documentElement.style.setProperty('--accent',c);document.documentElement.style.setProperty('--soft',c+'33');persist()}
+function setWallpaper(n){
+ const b={dots:'radial-gradient(#fff 2px,transparent 3px),#d6ebff',pink:'linear-gradient(135deg,#f9d9e8,#fff0f5)',blue:'linear-gradient(135deg,#d9e9ff,#b6d2f0)',lavender:'linear-gradient(135deg,#e5d9ff,#f5eaff)',plain:'var(--bg)'};
+ document.body.style.background=b[n]||b.plain;document.body.style.backgroundSize=n==='dots'?'18px 18px':'cover';data.wallpaper=n;persist();
+}
+function changeFont(f){document.body.style.fontFamily="'"+f+"',sans-serif";data.font=f;persist()}
+function setCursor(c){document.body.style.cursor=c;data.cursor=c;persist()}
+const quotes=['Make your own kind of magic.','You are allowed to grow at your own pace.','Romanticize the ordinary.','Your story is still being written.','Collect moments, not expectations.','Little things can make a big difference.','A new day, a new little beginning.','Create a life that feels like you.','Let yourself be a beginner.'];
+function newQuote(){$('quote').textContent='"'+quotes[Math.floor(Math.random()*quotes.length)]+'"'}
+const questions=['If you could live in any fictional world, which would you choose?','What song feels like your current life soundtrack?','What tiny thing makes your day better?','If you could instantly learn a skill, what would it be?','What would your dream bedroom look like?','Which season matches your personality?','What fictional place would you visit?'];
+function randomQuestion(){$('dailyQuestion').textContent=questions[Math.floor(Math.random()*questions.length)]}
+function saveCountdown(){data.countdown={name:$('countName').value,date:$('countDate').value};renderCountdown();persist()}
+function renderCountdown(){let c=data.countdown;if(!c?.date){$('countResult').textContent='Choose a date ♡';return}let days=Math.ceil((new Date(c.date+'T00:00:00')-new Date(new Date().toDateString()))/86400000);$('countResult').textContent=days<0?'That date has passed ♡':days===0?'It is today!':days+' days until '+(c.name||'your event')+' ♡'}
+
+/* NAME & BIO STUDIO */
+const nameThemes={
+ 'Soft Y2K':['angel','baby','dolly','glossy','sugar','pink','star','dream','velvet','honey','pearl','lilac','bunny','cloud','sweet','glitter','cherry','bubble','fairy','starlit'],
+ 'Coquette':['ribbon','lace','rose','satin','bow','blush','petal','daisy','cherie','vanilla','porcelain','ballet','pearl','darling','cupcake','romance','silk','loveletter','marzipan','rosy'],
+ 'Scene / Emo':['static','pixel','crash','neon','glitch','stereo','xoxo','midnight','broken','electric','chaos','velvet','raven','nocturne','echo','faded','riptide','starlight','hazel','afterglow'],
+ 'Cutecore':['bunny','pudding','peachy','muffin','poppy','mochi','berry','paws','pinky','sprinkle','teddy','pompom','jelly','cupcake','button','pocket','puff','doodle','bubbles','cherry'],
+ 'Dark Academia':['ink','moth','velvet','raven','quill','library','sonnet','sepia','ivy','noir','poetry','marble','candle','atlas','mystery','midnight','paper','autumn','muse','dusty'],
+ 'Dreamy / Angelcore':['halo','seraph','moon','cloud','stardust','luna','celeste','heavenly','dove','aurora','daydream','ether','solstice','opal','wings','dreamer','lullaby','cosmic','haze','glow'],
+ 'Vintage / Indie':['vinyl','lemon','film','honey','maple','sunny','cassette','ginger','sunday','peach','polaroid','mellow','indigo','clementine','retro','golden','sugar','velour','meadow','marmalade']
+};
+const nameEnds=['.mp3','.jpg','.zip','xo','ie','bby','core','diary','online','angel','luv','bug','dreams','archive','world','club','fairy','star','kiss','files','404','dotcom','baby','cloud','pop'];
+const bioThemes={
+ 'Soft aesthetic':['collecting little moments','made of daydreams and playlists','a little sunshine in human form','finding magic in ordinary days','soft heart, curious mind','living in my own little world','romanticizing the little things','just here for the pretty things','somewhere between clouds and dreams','a work in progress, always','tiny joys enthusiast','making memories in pastel','daydreaming with my eyes open','a pocketful of sunshine','here to create and explore','soft thoughts, loud dreams','a little bit of everything','currently blooming','made of music and memories','just passing through the clouds'],
+ 'Y2K internet':['brb, updating my life','loading personality...','online-ish since forever','powered by glitter and dial-up dreams','currently buffering','welcome to my homepage','404: boring personality not found','made in the internet era','click here for good vibes','pixelated but perfect','too many tabs open','internet kid at heart','digital daydreamer','guestbook enthusiast','currently in my glitter era','saving memories to disk','offline? never heard of her','made of pixels and playlists','status: daydreaming','you found my little corner'],
+ 'Coquette':['ribbons in my hair, dreams in my pocket','a little romance in everything','petals, poetry and pretty things','living softly, dreaming wildly','sweet like strawberry milk','collecting bows and beautiful moments','a daydream wrapped in lace','love notes to ordinary days','made of sugar and stories','petal by petal','somewhere in a fairytale','soft mornings and satin ribbons','a little vintage, a little dreamy','romantic at heart','pretty little things collector','flowers in my notebook','just a girl with a daydream','blush pink everything','a heart full of wonder','written in pink ink'],
+ 'Scene / Emo':['headphones on, world off','living between songs','too many feelings, not enough playlists','my playlist knows everything','made of midnight thoughts','a little chaos, a lot of music','currently in my own soundtrack','volume up, worries down','not a phase, just a playlist','lost in the static','music is my favourite language','glitter with a side of chaos','somewhere after midnight','the world is on shuffle','a collection of contradictions','existing in lowercase','a little loud, a little dreamy','songs over small talk','pixel heart, electric soul','currently buffering emotionally'],
+ 'Cutecore':['professional snack enthusiast','powered by strawberry milk','tiny things make me happy','just a little cupcake','bunny enthusiast','sprinkles on everything','a pocket-sized daydream','currently collecting cute things','made of marshmallows and magic','pawsitive energy only','too sweet for this tab','living in a sticker book','cute chaos department','tiny adventures club','one big happy doodle','sugar, smiles and sunshine','certified cloud watcher','little joys matter','a soft little creature','sending virtual cupcakes'],
+ 'Mysterious / Dark':['somewhere between dusk and dawn','a story with missing pages','quietly collecting mysteries','moonlight over everything','not everything needs explaining','a little mystery never hurt','lost in a library of thoughts','the night has its own language','a shadow with a playlist','written in invisible ink','somewhere out of reach','curiosity after dark','an unfinished poem','the quiet between chapters','a secret garden of thoughts','watching the stars change','a little strange, a little soft','dreams in monochrome','made of midnight and wonder','the plot is still unfolding'],
+ 'Funny / Chaotic':['professional overthinker','currently avoiding my inbox','too many tabs, one brain','CEO of forgetting why I walked in','powered by snacks','my brain has pop-up ads','here for the plot twists','chronically changing playlists','I came, I saw, I got distracted','loading... please wait','part-time genius, full-time goof','my hobbies have hobbies','probably thinking about food','chaos, but make it cute','I put the fun in malfunction','not sure what is happening either','one brain cell, many dreams','oops, another side quest','certified silly goose','this bio is under construction']
+};
+let activeNameTheme=Object.keys(nameThemes)[0],activeBioTheme=Object.keys(bioThemes)[0],nameOffset=0,bioOffset=0;
+function makeTabs(id,items,selected,fn){$(id).innerHTML='';items.forEach(x=>{let b=document.createElement('button');b.textContent=x;b.className=x===selected?'primary':'';b.onclick=()=>fn(x);$(id).appendChild(b)})}
+function chooseNameTheme(t){activeNameTheme=t;nameOffset=0;makeTabs('nameTabs',Object.keys(nameThemes),t,chooseNameTheme);generateNames()}
+function chooseBioTheme(t){activeBioTheme=t;bioOffset=0;makeTabs('bioTabs',Object.keys(bioThemes),t,chooseBioTheme);generateBios()}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function generateNames(more=false){
+ if(more)nameOffset+=20;
+ let roots=nameThemes[activeNameTheme],results=[];
+ for(let i=0;i<24;i++){let root=roots[(i+nameOffset)%roots.length],end=nameEnds[(i*7+nameOffset*3)%nameEnds.length];results.push(root+end)}
+ results=shuffle(results);
+ renderIdeas('nameResults',results);
+}
+function generateBios(more=false){
+ if(more)bioOffset+=20;
+ let arr=bioThemes[activeBioTheme],results=shuffle(arr.map((x,i)=>x));
+ renderIdeas('bioResults',results);
+}
+function renderIdeas(id,arr){
+ $(id).innerHTML='';
+ arr.forEach(value=>{
+  let box=document.createElement('div');box.className='idea';
+  let span=document.createElement('span');span.textContent=value;
+  let btn=document.createElement('button');btn.textContent='copy';btn.onclick=()=>copyText(value);
+  let fav=document.createElement('button');fav.textContent='♡';fav.title='Save favourite';fav.onclick=()=>{data.nameFavorites??=[];if(!data.nameFavorites.includes(value))data.nameFavorites.push(value);persist();renderNameFavorites()};
+  box.append(span,btn,fav);$(id).appendChild(box);
+ });
+}
+function renderNameFavorites(){
+ $('nameFavorites').innerHTML='';
+ (data.nameFavorites||[]).forEach((v,i)=>{let r=document.createElement('div');r.className='listitem';let s=document.createElement('span');s.className='itemtext';s.textContent=v;let b=document.createElement('button');b.textContent='copy';b.onclick=()=>copyText(v);let d=document.createElement('button');d.textContent='×';d.onclick=()=>{data.nameFavorites.splice(i,1);persist();renderNameFavorites()};r.append(s,b,d);$('nameFavorites').appendChild(r)});
+}
+function copyText(t){if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).then(()=>{$('saveStatus').textContent='Copied ♡'}).catch(()=>prompt('Copy this:',t));else prompt('Copy this:',t)}
+
+/* DIARY */
+let diaryMood='';
+function setDiaryMood(m){diaryMood=m;$('diaryMood').value=m}
+function saveDiary(){
+ let title=$('diaryTitle').value.trim(),body=$('diaryText').value.trim();
+ if(!body){alert('Write a little something first ♡');return}
+ data.diary.unshift({id:Date.now(),date:new Date().toLocaleString(),title:title||'untitled entry',mood:diaryMood,body});
+ $('diaryTitle').value='';$('diaryText').value='';diaryMood='';$('diaryMood').value='';persist();renderDiary();
+}
+function renderDiary(){
+ $('diaryEntries').innerHTML='';
+ data.diary.forEach((e,i)=>{
+  let box=document.createElement('div');box.className='listitem';box.style.display='block';
+  let h=document.createElement('strong');h.textContent=e.title+' · '+e.mood;
+  let p=document.createElement('p');p.className='small';p.textContent=e.date;
+  let body=document.createElement('p');body.textContent=e.body;
+  let del=document.createElement('button');del.textContent='delete';del.onclick=()=>{if(confirm('Delete this diary entry?')){data.diary.splice(i,1);persist();renderDiary()}};
+  box.append(h,p,body,del);$('diaryEntries').appendChild(box);
+ });
+}
+
+/* PET */
+const pets=['🐰','🐱','🐶','🐻','🐼','🐸','🐹','🦊','🐧','🐥'];
+function renderPet(){
+ let p=data.pet;$('petName').value=p.name;$('petNameLabel').textContent=p.name;$('petFace').textContent=p.face;
+ $('petHappy').value=p.happy;$('petFull').value=p.full;$('petClean').value=p.clean;
+ $('petChoices').innerHTML='';
+ pets.forEach(face=>{let b=document.createElement('button');b.textContent=face;b.onclick=()=>{p.face=face;persist();renderPet()};$('petChoices').appendChild(b)});
+}
+function savePetName(){data.pet.name=$('petName').value.trim()||'Bunny';persist();renderPet()}
+function petAction(action){
+ let p=data.pet,msg='';
+ if(action==='feed'){p.full=Math.min(100,p.full+20);p.happy=Math.min(100,p.happy+5);msg='Yummy! Your pet enjoyed a snack 🍓'}
+ if(action==='play'){p.happy=Math.min(100,p.happy+20);p.full=Math.max(0,p.full-8);msg='That was fun! Your pet had a lovely playtime 🧸'}
+ if(action==='cuddle'){p.happy=Math.min(100,p.happy+12);msg='A cozy little moment ♡'}
+ if(action==='clean'){p.clean=100;msg='A fresh and tidy little room! 🫧'}
+ $('petMessage').textContent=msg;$('petStatus').textContent=msg;persist();renderPet();
+}
+function savePetName(){data.pet.name=$('petName').value.trim()||'Bunny';persist();renderPet()}
+
+/* DRESS UP */
+const dressState={hair:'💇🏻‍♀️',outfit:'👗',accessory:'🎀',bg:'🌸'};
+const dressOptions={hair:['💇🏻‍♀️','💇🏼‍♀️','💇🏽‍♀️','💇🏾‍♀️','💇🏿‍♀️','👩🏻‍🦰','👩🏼‍🦱','👩🏽‍🦳','👩🏻‍🦳'],outfit:['👗','👚','🩱','🥻','👘','🧥','🩰','👕','🎽'],accessory:['🎀','👑','🕶️','👜','🧸','🌸','🦋','💎','♡','✨'],bg:['🌸','☁️','🌈','🌙','⭐','🪩','🍓']};
+function setupDress(){
+ Object.entries(dressOptions).forEach(([key,arr])=>{
+  let id=key==='bg'?'dressBackgrounds':key+'Choices';
+  $(id).innerHTML='';arr.forEach(v=>{let b=document.createElement('button');b.textContent=v;b.onclick=()=>{dressState[key]=v;renderDoll()};$(id).appendChild(b)});
+ });
+ renderDoll();
+}
+function renderDoll(){$('doll').textContent=dressState.hair+'\n'+dressState.outfit+'\n'+dressState.accessory;$('dollCaption').textContent='your little avatar · '+dressState.bg;$('doll').parentElement.parentElement.style.background='linear-gradient(135deg,#eaf5ff,#fff0f6)'}
+function saveOutfit(){data.outfits.push({...dressState});persist();renderOutfits()}
+function renderOutfits(){
+ $('outfitSaved').innerHTML='';
+ data.outfits.forEach((o,i)=>{let d=document.createElement('div');d.className='listitem';let s=document.createElement('span');s.className='itemtext';s.textContent=o.hair+' '+o.outfit+' '+o.accessory+' '+o.bg;let load=document.createElement('button');load.textContent='wear';load.onclick=()=>{Object.assign(dressState,o);renderDoll()};let del=document.createElement('button');del.textContent='×';del.onclick=()=>{data.outfits.splice(i,1);persist();renderOutfits()};d.append(s,load,del);$('outfitSaved').appendChild(d)});
+}
+
+/* MOODBOARD */
+let selectedMood=null;
+function addMoodItem(item){
+ let el=document.createElement('div');el.className='mooditem';el.style.left=(item.x||30)+'px';el.style.top=(item.y||30)+'px';
+ el.style.fontFamily=item.font||$('moodFont').value;el.style.fontSize=(item.size||27)+'px';el.style.color=item.color||'#b879a1';el.dataset.kind=item.kind||'text';el.dataset.text=item.text||'';el.dataset.src=item.src||'';
+ if(item.kind==='image'){let img=document.createElement('img');img.src=item.src;el.appendChild(img)}else el.textContent=item.text||'♡';
+ $('moodCanvas').appendChild(el);dragMood(el);selectMood(el);
+}
+function dragMood(el){
+ let moving=false,sx=0,sy=0,ox=0,oy=0;
+ el.addEventListener('pointerdown',e=>{e.stopPropagation();moving=true;selectMood(el);el.setPointerCapture(e.pointerId);sx=e.clientX;sy=e.clientY;ox=el.offsetLeft;oy=el.offsetTop});
+ el.addEventListener('pointermove',e=>{if(!moving)return;el.style.left=Math.max(0,ox+e.clientX-sx)+'px';el.style.top=Math.max(0,oy+e.clientY-sy)+'px'});
+ el.addEventListener('pointerup',()=>moving=false);el.addEventListener('pointercancel',()=>moving=false);
+ el.addEventListener('click',e=>{e.stopPropagation();selectMood(el)});
+}
+function selectMood(el){document.querySelectorAll('.mooditem').forEach(x=>x.classList.remove('selected'));selectedMood=el;el.classList.add('selected')}
+$('moodCanvas').addEventListener('click',()=>{if(selectedMood)selectedMood.classList.remove('selected');selectedMood=null});
+function addMoodText(){
+ let text=$('moodText').value.trim();if(!text)return;
+ addMoodItem({kind:'text',text,font:$('moodFont').value,size:$('moodTextSize').value,color:$('moodTextColor').value,x:35,y:35});$('moodText').value='';
+}
+function addMoodSticker(s){addMoodItem({kind:'text',text:s,font:'Quicksand',size:40,color:$('moodTextColor').value,x:40,y:50})}
+function updateMoodSelection(){if(selectedMood&&selectedMood.dataset.kind==='text')selectedMood.style.fontFamily=$('moodFont').value}
+function deleteMoodItem(){if(selectedMood){selectedMood.remove();selectedMood=null}}
+$('moodImage').addEventListener('change',e=>{
+ let f=e.target.files[0];if(!f)return;if(f.size>1500000){alert('Please choose an image under 1.5 MB.');return}
+ let r=new FileReader();r.onload=()=>addMoodItem({kind:'image',src:r.result,x:40,y:40});r.readAsDataURL(f);e.target.value='';
+});
+function moodState(){return [...$('moodCanvas').querySelectorAll('.mooditem')].map(el=>({kind:el.dataset.kind,text:el.dataset.text,src:el.dataset.src,x:el.offsetLeft,y:el.offsetTop,font:el.style.fontFamily,size:parseInt(el.style.fontSize)||27,color:el.style.color}))}
+function saveMoodboard(){
+ let name=$('moodBoardName').value.trim()||'My moodboard';data.moodboards.push({name,items:moodState()});persist();renderMoodSaved();
+}
+function renderMoodSaved(){
+ $('moodSaved').innerHTML='';data.moodboards.forEach((b,i)=>{let r=document.createElement('div');r.className='listitem';let s=document.createElement('span');s.className='itemtext';s.textContent=b.name;let load=document.createElement('button');load.textContent='open';load.onclick=()=>{ $('moodCanvas').innerHTML='';b.items.forEach(addMoodItem);$('moodBoardName').value=b.name};let del=document.createElement('button');del.textContent='×';del.onclick=()=>{data.moodboards.splice(i,1);persist();renderMoodSaved()};r.append(s,load,del);$('moodSaved').appendChild(r)});
+}
+function clearMoodboard(){if(confirm('Clear this board?')){$('moodCanvas').innerHTML='';selectedMood=null}}
+function exportMoodboard(){
+ let items=moodState(),esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+ let parts=items.map(it=>it.kind==='image'?`<image href="${it.src}" x="${it.x}" y="${it.y}" width="150" height="150"/>`:`<text x="${it.x}" y="${it.y+it.size}" font-family="${esc(it.font)}" font-size="${it.size}" fill="${it.color}">${esc(it.text)}</text>`).join('');
+ let svg=`<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600"><rect width="100%" height="100%" fill="white"/>${parts}</svg>`;
+ downloadBlob(new Blob([svg],{type:'image/svg+xml'}),'my-moodboard.svg');
+}
+
+/* PIXEL ART */
+let pixelTool='draw',pixelCells=Array(256).fill('#ffffff'),pixelDrawing=false;
+function buildPixelGrid(){
+ let g=$('pixelGrid');g.innerHTML='';
+ pixelCells.forEach((c,i)=>{let d=document.createElement('div');d.className='pixel';d.style.background=c;d.dataset.i=i;d.addEventListener('pointerdown',e=>{e.preventDefault();pixelDrawing=true;paintPixel(i)});d.addEventListener('pointerenter',()=>{if(pixelDrawing)paintPixel(i)});g.appendChild(d)});
+ window.addEventListener('pointerup',()=>pixelDrawing=false);
+}
+function paintPixel(i){pixelCells[i]=pixelTool==='erase'?'#ffffff':$('pixelColor').value;$('pixelGrid').children[i].style.background=pixelCells[i]}
+function setPixelTool(t){pixelTool=t}
+function setPixelColor(c){$('pixelColor').value=c;pixelTool='draw'}
+function clearPixels(){pixelCells=Array(256).fill('#ffffff');buildPixelGrid()}
+function exportPixels(){
+ let c=document.createElement('canvas');c.width=256;c.height=256;let ctx=c.getContext('2d');
+ pixelCells.forEach((v,i)=>{ctx.fillStyle=v;ctx.fillRect((i%16)*16,Math.floor(i/16)*16,16,16)});
+ c.toBlob(b=>downloadBlob(b,'my-pixel-art.png'));
+}
+function downloadPixelData(){downloadBlob(new Blob([JSON.stringify(pixelCells)],{type:'application/json'}),'pixel-art-project.json')}
+
+/* MESSAGE SIMULATOR */
+let chatSide='mine';
+function chatAs(side){chatSide=side}
+function sendChat(){
+ let msg=$('chatMessage').value.trim();if(!msg)return;
+ data.chat.push({text:msg,side:chatSide,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+ $('chatMessage').value='';persist();renderChat();
+}
+$('chatMessage').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
+$('chatContact').addEventListener('input',()=>renderChat());
+function renderChat(){
+ $('chatTitle').textContent='♡ '+($('chatContact').value||'chat preview');
+ $('chatBox').innerHTML='';
+ data.chat.forEach(m=>{let b=document.createElement('div');b.className='bubble '+(m.side==='mine'?'mine':'');b.textContent=m.text;let meta=document.createElement('div');meta.className='chatmeta';meta.textContent=(m.side==='mine'?'you':'contact')+' · '+m.time;b.appendChild(meta);$('chatBox').appendChild(b)});
+ $('chatBox').scrollTop=$('chatBox').scrollHeight;
+}
+function clearChat(){if(confirm('Clear this fictional conversation?')){data.chat=[];persist();renderChat()}}
+function exportChat(){let text=data.chat.map(m=>m.time+' '+(m.side==='mine'?'Me':'Contact')+': '+m.text).join('\n');downloadBlob(new Blob([text],{type:'text/plain'}),'chat-conversation.txt')}
+
+/* MUSIC */
+let musicURLs=[];
+$('musicUpload').addEventListener('change',e=>{
+ [...e.target.files].forEach(file=>{
+  if(!file.type.startsWith('audio/'))return;
+  let url=URL.createObjectURL(file);musicURLs.push(url);
+  let item={name:file.name,url};addMusicItem(item);
+ });
+ e.target.value='';
+});
+function addMusicItem(item){
+ let r=document.createElement('div');r.className='listitem';let s=document.createElement('span');s.className='itemtext';s.textContent=item.name;
+ let b=document.createElement('button');b.textContent='play';b.onclick=()=>{ $('audioPlayer').src=item.url;$('trackName').textContent=item.name;$('trackInfo').textContent='now playing ♡';$('audioPlayer').play()};
+ r.append(s,b);$('playlist').appendChild(r);
+}
+
+/* GUESTBOOK */
+function addGuestbook(){
+ let name=$('guestName').value.trim(),msg=$('guestMessage').value.trim();if(!name||!msg){alert('Add a name and a message first ♡');return}
+ data.guests.unshift({name,msg,date:new Date().toLocaleDateString()});$('guestName').value='';$('guestMessage').value='';persist();renderGuests();
+}
+function renderGuests(){
+ $('guestEntries').innerHTML='';
+ data.guests.forEach((g,i)=>{let d=document.createElement('div');d.className='listitem';d.style.display='block';let h=document.createElement('strong');h.textContent='♡ '+g.name;let p=document.createElement('p');p.textContent=g.msg;let small=document.createElement('span');small.className='small';small.textContent=g.date;d.append(h,p,small);$('guestEntries').appendChild(d)});
+}
+
+/* QUIZ MAKER */
+let quizDraft=[],activeQuiz=null,quizIndex=0,quizScore=0;
+function addQuizQuestion(){
+ let opts=[...$('quizOptions').querySelectorAll('input')].map(x=>x.value.trim());
+ let q=$('quizQuestion').value.trim();if(!q||opts.some(x=>!x)){alert('Fill in the question and all four options.');return}
+ quizDraft.push({q,opts,correct:Number($('correctOption').value)});$('quizQuestion').value='';$('quizOptions').querySelectorAll('input').forEach(x=>x.value='');renderQuizDraft();
+}
+function renderQuizDraft(){
+ $('quizDraft').innerHTML='';quizDraft.forEach((q,i)=>{let d=document.createElement('div');d.className='listitem';d.textContent=(i+1)+'. '+q.q;$('quizDraft').appendChild(d)});
+}
+function saveQuiz(){
+ let title=$('quizTitle').value.trim()||'My quiz';if(!quizDraft.length){alert('Add at least one question first.');return}
+ data.quizzes.push({title,questions:quizDraft});quizDraft=[];$('quizTitle').value='';renderQuizDraft();persist();renderQuizList();
+}
+function renderQuizList(){
+ $('quizSelect').innerHTML='<option value="">Choose a quiz</option>';
+ data.quizzes.forEach((q,i)=>{let o=document.createElement('option');o.value=i;o.textContent=q.title;$('quizSelect').appendChild(o)});
+ $('quizSaved').innerHTML='';
+ data.quizzes.forEach((q,i)=>{let d=document.createElement('div');d.className='listitem';let s=document.createElement('span');s.className='itemtext';s.textContent=q.title+' · '+q.questions.length+' questions';let del=document.createElement('button');del.textContent='×';del.onclick=()=>{data.quizzes.splice(i,1);persist();renderQuizList()};d.append(s,del);$('quizSaved').appendChild(d)});
+}
+function startQuiz(){
+ let i=Number($('quizSelect').value);if($('quizSelect').value===''){activeQuiz=null;$('quizPlay').textContent='Choose a quiz ♡';return}
+ activeQuiz=data.quizzes[i];quizIndex=0;quizScore=0;showQuizQuestion();
+}
+function showQuizQuestion(){
+ let box=$('quizPlay');box.innerHTML='';
+ if(quizIndex>=activeQuiz.questions.length){let h=document.createElement('h2');h.textContent='Quiz complete!';let p=document.createElement('p');p.textContent='You got '+quizScore+' out of '+activeQuiz.questions.length+' ♡';let b=document.createElement('button');b.textContent='play again';b.onclick=startQuiz;box.append(h,p,b);return}
+ let q=activeQuiz.questions[quizIndex],h=document.createElement('h3');h.textContent=(quizIndex+1)+'. '+q.q;box.appendChild(h);
+ q.opts.forEach((o,i)=>{let b=document.createElement('button');b.style.display='block';b.style.width='100%';b.style.margin='7px 0';b.textContent=o;b.onclick=()=>{if(i===q.correct)quizScore++;quizIndex++;showQuizQuestion()};box.appendChild(b)});
+}
+
+/* STICKER SHOP */
+const shopItems=[
+ {e:'🎀',n:'Ribbon bow',c:'cute'},{e:'🧸',n:'Teddy bear',c:'cute'},{e:'🐰',n:'Bunny friend',c:'cute'},{e:'🍓',n:'Strawberry',c:'cute'},{e:'🧁',n:'Cupcake',c:'cute'},{e:'💗',n:'Pink heart',c:'cute'},{e:'🐱',n:'Kitty',c:'cute'},{e:'🫧',n:'Bubbles',c:'cute'},
+ {e:'💿',n:'CD player',c:'y2k'},{e:'📱',n:'Retro phone',c:'y2k'},{e:'🪩',n:'Disco ball',c:'y2k'},{e:'💎',n:'Gem',c:'y2k'},{e:'🎧',n:'Headphones',c:'y2k'},{e:'📷',n:'Camera',c:'y2k'},{e:'🦋',n:'Butterfly',c:'y2k'},{e:'⭐',n:'Star',c:'y2k'},
+ {e:'🌷',n:'Tulip',c:'nature'},{e:'🌸',n:'Blossom',c:'nature'},{e:'🌙',n:'Moon',c:'nature'},{e:'☁️',n:'Cloud',c:'nature'},{e:'🐚',n:'Seashell',c:'nature'},{e:'🌈',n:'Rainbow',c:'nature'},
+ {e:'♡',n:'Heart symbol',c:'symbols'},{e:'୨୧',n:'Bow symbol',c:'symbols'},{e:'✧',n:'Sparkle',c:'symbols'},{e:'☆',n:'Star symbol',c:'symbols'},{e:'☾',n:'Moon symbol',c:'symbols'}
+];
+function showShop(cat){
+ $('shopGrid').innerHTML='';
+ shopItems.filter(x=>cat==='all'||x.c===cat).forEach(item=>{
+  let d=document.createElement('div');d.className='shopitem';let e=document.createElement('div');e.className='emoji';e.textContent=item.e;let n=document.createElement('div');n.textContent=item.n;let b=document.createElement('button');let owned=data.stickers.includes(item.e);b.textContent=owned?'collected ✓':'collect ♡';b.disabled=owned;b.onclick=()=>{data.stickers.push(item.e);persist();showShop(cat);renderMyStickers()};d.append(e,n,b);$('shopGrid').appendChild(d);
+ });
+ renderMyStickers();
+}
+function renderMyStickers(){
+ $('myStickers').innerHTML='';$('stickerCount').textContent=data.stickers.length+' collected';
+ data.stickers.forEach(s=>{let b=document.createElement('div');b.className='stickerchoice';b.textContent=s;$('myStickers').appendChild(b)});
+}
+
+/* PALETTE GENERATOR */
+const paletteSets={
+ pastel:['#f8cde0','#d9eafa','#e5dafa','#d9eadb','#f8e2c9','#fff5f8','#d9c4d8'],
+ pink:['#f7c4d8','#eaa4c3','#fce8ef','#c97da4','#8d5575','#f4d6e2','#fff0f6'],
+ blue:['#c6e1f7','#91bfe0','#e8f4ff','#7d9fbd','#d4e8f7','#abcde6','#f4faff'],
+ earth:['#c6aa8b','#e3d2b9','#a6a987','#75836c','#d8b7a1','#f1e6d7','#b98c70'],
+ vintage:['#d6a6a0','#d9c5a1','#9da98c','#8795a8','#c5a9bc','#ead9c8','#a47779'],
+ neon:['#ff6bcb','#9d8bff','#70e6df','#f8ef61','#ff9b74','#b8ff8c','#f4a8ff']
+};
+let currentPalette=[];
+function generatePalette(){
+ let key=$('paletteStyle').value,arr=paletteSets[key]||Object.values(paletteSets).flat();
+ currentPalette=shuffle(arr).slice(0,5);renderPalette();
+}
+function renderPalette(){
+ $('paletteDisplay').innerHTML='';
+ currentPalette.forEach(c=>{let d=document.createElement('div');d.className='colorchip';d.style.background=c;d.textContent=c;d.onclick=()=>copyText(c);$('paletteDisplay').appendChild(d)});
+}
+function savePalette(){if(!currentPalette.length)generatePalette();data.palettes.unshift([...currentPalette]);persist();renderSavedPalettes()}
+function copyPalette(){copyText(currentPalette.join(', '))}
+function renderSavedPalettes(){
+ $('savedPalettes').innerHTML='';
+ data.palettes.forEach((p,i)=>{let d=document.createElement('div');d.className='listitem';p.forEach(c=>{let sw=document.createElement('span');sw.style.background=c;sw.style.width='23px';sw.style.height='23px';sw.style.borderRadius='6px';sw.title=c;d.appendChild(sw)});let load=document.createElement('button');load.textContent='view';load.onclick=()=>{currentPalette=p;renderPalette()};let del=document.createElement('button');del.textContent='×';del.onclick=()=>{data.palettes.splice(i,1);persist();renderSavedPalettes()};d.append(load,del);$('savedPalettes').appendChild(d)});
+}
+
+/* FILES, BACKUP, INITIALIZE */
+function downloadBlob(blob,name){
+ let url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function saveBackup(){persist();downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),'pixel-paradise-backup.json')}
+$('restoreBackup').addEventListener('change',e=>{
+ let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(!d||typeof d!=='object')throw Error();data={...defaults,...d,pet:{...defaults.pet,...d.pet}};persist();location.reload()}catch(err){alert('That backup file could not be read.')}};r.readAsText(f);e.target.value='';
+});
+function resetAll(){if(confirm('This will erase the saved Pixel Paradise data in this browser. Continue?')){localStorage.removeItem(KEY);location.reload()}}
+$('wallpaperUpload').addEventListener('change',e=>{
+ let f=e.target.files[0];if(!f)return;if(f.size>1200000){alert('Choose a wallpaper under 1.2 MB.');return}
+ let r=new FileReader();r.onload=()=>{document.body.style.backgroundImage='url("'+r.result+'")';document.body.style.backgroundSize='cover';data.wallpaperData=r.result;persist()};r.readAsDataURL(f);e.target.value='';
+});
+function initialize(){
+ load();
+ setTheme(data.theme||'pink');if(data.accent)customAccent(data.accent);
+ if(['dots','pink','blue','lavender'].includes(data.wallpaper))setWallpaper(data.wallpaper);
+ if(data.wallpaperData){document.body.style.backgroundImage='url("'+data.wallpaperData+'")';document.body.style.backgroundSize='cover'}
+ changeFont(data.font||'Quicksand');if(data.cursor)setCursor(data.cursor);
+ $('siteFont').value=data.font||'Quicksand';$('greeting').value=data.greeting||'welcome to my little world';
+ $('quickNotes').value=data.quickNotes||'';
+ $('quickNotes').addEventListener('input',()=>{data.quickNotes=$('quickNotes').value;persist()});
+ $('countName').value=data.countdown?.name||'';$('countDate').value=data.countdown?.date||'';renderCountdown();
+ makeTabs('nameTabs',Object.keys(nameThemes),activeNameTheme,chooseNameTheme);
+ makeTabs('bioTabs',Object.keys(bioThemes),activeBioTheme,chooseBioTheme);
+ generateNames();generateBios();renderNameFavorites();
+ renderDiary();renderPet();setupDress();buildPixelGrid();renderChat();renderGuests();renderQuizList();renderMyStickers();generatePalette();renderSavedPalettes();
+}
+initialize();
+</script>
+</body>
+</html>
